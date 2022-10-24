@@ -12,6 +12,11 @@ def register_user(request):
             user = form.save(commit=False) #commit=False means to pause the saving process
             user.set_password(user.password) #To hide the password field in the form
             user.save() #Save to db
+            user = authenticate(
+                username=form.cleaned_data['username'],
+                password=form.cleaned_data['password'],
+                )
+            login(request, user)
             return redirect("home") #redirect to 'home' page
     context = {"form": form}
     return render(request, "register.html", context)

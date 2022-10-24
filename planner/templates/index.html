@@ -36,18 +36,29 @@
     <a class="menu-toggle rounded" href="#"><i class="fas fa-bars"></i></a>
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
+        {% if request.user.is_authenticated %}
+        <li class="sidebar-brand">
+          <a>Welcome, {{request.user.username}}</a>
+        </li>
+        {% endif %}
         <li class="sidebar-brand"><a href="#page-top">Start Planning</a></li>
         <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
         <li class="sidebar-nav-item"><a href="#about">About</a></li>
         <li class="sidebar-nav-item"><a href="#services">Services</a></li>
         <li class="sidebar-nav-item"><a href="#portfolio">Portfolio</a></li>
         <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
+        {% if request.user.is_authenticated %}
+        <li class="sidebar-nav-item">
+          <a href="{% url 'logout' %}">Logout</a>
+        </li>
+        {% else %}
         <li class="sidebar-nav-item">
           <a href="{% url 'register' %}">Register</a>
         </li>
         <li class="sidebar-nav-item">
-          <a href="">Login</a>
+          <a href="{% url 'login' %}">Login</a>
         </li>
+        {% endif %}
       </ul>
     </nav>
     <!-- Header-->
@@ -55,9 +66,13 @@
       <div class="container px-4 px-lg-5 text-center">
         <h1 class="mb-1">Event Planner</h1>
         <h3 class="mb-5"><em>A Free Useful Tool for Planning Any Event</em></h3>
+        {% if request.user.is_authenticated %}
+
+        {% else %}
         <a class="btn btn-primary btn-xl" href="{% url 'register' %}"
           >Register Now</a
         >
+        {% endif %}
       </div>
     </header>
     <!-- About-->
