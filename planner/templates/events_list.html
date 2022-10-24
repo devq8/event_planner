@@ -1,18 +1,31 @@
-{% extends "base.html" %} 
+{% extends "base.html" %} {% load static %} {% block title %} Events List
+{%endblock title %} {%block content %} {% for event in events %}
 
-{% block title %} Events List {% endblock title %} 
-
-{% block content %}
-
-
-<div class="card" style="width: 18rem;">
-    <img src="{{event.image}}" class="card-img-top" alt="...">
-    <div class="card-body">
-      <h5 class="card-title">{{event.name}}</h5>
-      <p class="card-text">{{event.date}}</p>
-      <a href="#" class="btn btn-dark">Get more details</a>
+<div class="col mb-5">
+  <div class="card rounded-3 shadow-sm h-100">
+    <!-- Product image-->
+    <img
+      class="card-img-top"
+      src="{{ MEDIA_URL }}/{{ event.image }}"
+      alt="{{ event.image }}"
+    />
+    <!-- Product details-->
+    <div class="card-body p-4">
+      <div class="text-center">
+        <!-- Product name-->
+        <h5 class="fw-bolder">{{event.name}}</h5>
+      </div>
+    </div>
+    <!-- Product actions-->
+    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+      <div class="text-center">
+        <a class="btn btn-outline-dark mt-auto" href="#">Details</a>
+      </div>
+    </div>
+    <div class="card-footer">
+      <span class="badge bg-dark rounded-pill"> {{event.date}}</span>
     </div>
   </div>
+</div>
 
-
- {% endblock content %}
+{% endfor %} {% endblock content %}

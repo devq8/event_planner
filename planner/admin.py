@@ -6,3 +6,5 @@ from planner.models import Event
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     readonly_fields= ("created_at", "modified_at")
+
+    

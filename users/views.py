@@ -1,6 +1,9 @@
+import os
 from django.shortcuts import render,redirect
 from users.forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, login, authenticate
+from planner.models import Event
+from django.conf import settings
 
 def register_user(request):
     # Create new instance of RegisterationForm.
@@ -38,3 +41,19 @@ def login_user(request):
                 return redirect("home")
     context = {"form": form}
     return render (request, "login.html", context)
+
+def get_events(request):
+    events_list = Event.objects.all()
+    path = settings.MEDIA_ROOT
+    
+    new_list = []
+    for event in events_list:
+        img_list = (f"{path}/{event.image}")
+        new_list.append({
+            "name": event.name,
+            "image": img_list,
+            "date": event.date,
+        })
+    context = {"events": new_list}
+    print(context)
+    return render (request, "events_list.html", context)
