@@ -26,6 +26,7 @@ urlpatterns = [
     path("", get_home, name="home" ), 
     path("register/", register_user, name="register" ), 
     path("login/", login_user, name="login" ), 
+    path("signin/", login_user, name="signin" ), 
     path("logout/", logout_user, name="logout" ), 
     path("events/", get_events, name="events-list" ), 
 

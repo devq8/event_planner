@@ -1,4 +1,3 @@
-import os
 import datetime
 from django.utils import timezone
 from django.shortcuts import render,redirect
@@ -6,6 +5,7 @@ from users.forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, login, authenticate
 from planner.models import Event
 from django.conf import settings
+
 
 def register_user(request):
     # Create new instance of RegisterationForm.
@@ -42,9 +42,15 @@ def login_user(request):
                 login(request, auth_user)
                 return redirect("events-list")
     context = {"form": form}
-    return render (request, "login.html", context)
+    return render (request, "signin.html", context)
+
 
 def get_events(request):
+
+    if request.user.is_anonymous:
+        return redirect("login")
+
+
     events_list = Event.objects.all()
     path = settings.MEDIA_ROOT
 

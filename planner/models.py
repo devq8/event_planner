@@ -1,3 +1,4 @@
+from tabnanny import verbose
 from django.db import models
 
 
@@ -5,7 +6,7 @@ from django.db import models
 
 class Event(models.Model):
     name = models.CharField(max_length=30)
-    image = models.ImageField(null=True)
+    image = models.ImageField()
     number_of_seats = models.IntegerField()
     number_of_booked_seats = models.IntegerField()
     date = models.DateField()
