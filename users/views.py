@@ -40,7 +40,7 @@ def login_user(request):
             auth_user = authenticate(username=username, password=password)
             if auth_user is not None:
                 login(request, auth_user)
-                return redirect("events-list")
+                return redirect("home")
     context = {"form": form}
     return render (request, "login.html", context)
 
@@ -52,7 +52,6 @@ def get_events(request):
 
 
     events_list = Event.objects.all()
-    path = settings.MEDIA_ROOT
 
 
     new_list = []
@@ -72,11 +71,10 @@ def get_events(request):
             days_message = f"Passed!"
             passed = True
 
-        img_list = (f"{path}/{event.image}")
         if request.user.is_staff:
             new_list.append({
                 "name": event.name,
-                "image": img_list,
+                "image": event.image,
                 "date": event.date,
                 "available_seats": (event.number_of_seats - event.number_of_booked_seats),
                 "days_to_go": days_message ,
@@ -86,7 +84,7 @@ def get_events(request):
             if not passed:
                 new_list.append({
                     "name": event.name,
-                    "image": img_list,
+                    "image": event.image,
                     "date": event.date,
                     "available_seats": (event.number_of_seats - event.number_of_booked_seats),
                     "days_to_go": days_message ,

@@ -62,7 +62,17 @@
           <a href="{% url 'register' %}">Register</a>
         </li>
         <li class="sidebar-nav-item">
-          <a href="{% url 'login' %}">Login</a>
+          <form class="my-2 text-white" action="{% url 'login' %}" method="POST">
+            <div class="mx-3">
+              <div>
+                {% csrf_token %}
+                {{form}}
+              </div>
+              <button class="btn btn-dark btn-lg my-2" type="submit">
+                Login
+              </button>
+           </div>
+          </form>
         </li>
         {% endif %}
       </ul>
@@ -79,6 +89,20 @@
         {% endif %}
       </div>
     </header>
+    <!-- {% if request.user.is_authenticated %}
+    {% else %}
+    <form class="my-5" action="{% url 'login' %}" method="POST">
+      <div class="container">
+        <div>
+          {% csrf_token %}
+          {{form}}
+        </div>
+        <button class="btn btn-dark btn-lg" type="submit">
+          Login
+        </button>
+     </div>
+    </form>
+    {% endif %} -->
     <!-- About-->
     <section class="content-section bg-light" id="about">
       <div class="container px-4 px-lg-5 text-center">
@@ -98,6 +122,7 @@
         </div>
       </div>
     </section>
+
     <!-- Services-->
     <section
       class="content-section bg-primary text-white text-center"
