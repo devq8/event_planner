@@ -1,7 +1,7 @@
 import datetime
 from django.utils import timezone
 from django.shortcuts import render,redirect
-from users.forms import RegistrationForm, LoginForm
+from users.forms import RegistrationForm, LoginForm, ReservationForm
 from django.contrib.auth import login, logout, login, authenticate
 from planner.models import Event
 from django.conf import settings
@@ -44,7 +44,6 @@ def login_user(request):
     context = {"form": form}
     return render (request, "login.html", context)
 
-
 def get_events(request):
 
     if request.user.is_anonymous:
@@ -86,6 +85,7 @@ def get_events(request):
         else:
             if not passed:
                 new_list.append({
+                    "id": event.id,
                     "name": event.name,
                     "image": event.image,
                     "date": event.date,
@@ -114,3 +114,21 @@ def get_event_detail(request, event_id):
     }
 
     return render(request, "event_detail.html", context)
+
+def create_reservation(request, event_id):
+    form = ReservationForm({
+        "users": request.user,
+        "event": event_id,
+    })
+    print("Passed the form")
+    if request.method == "POST":
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("events-list")
+
+    context = {
+        "form": form,
+    }
+
+    return render(request, "reserve.html", context)

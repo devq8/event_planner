@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from planner.models import Event, Reservation
 
 User = get_user_model()
 
@@ -32,3 +33,8 @@ class LoginForm(forms.Form):
     password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={
         "class": "form-control",
     }))
+
+class ReservationForm(forms.ModelForm):
+    class Meta:
+        model = Reservation
+        fields = '__all__'
