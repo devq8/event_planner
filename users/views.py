@@ -55,6 +55,7 @@ def get_events(request):
 
 
     new_list = []
+    
     for event in events_list:
 
         today = datetime.date(timezone.now().year,timezone.now().month,timezone.now().day)
@@ -73,10 +74,12 @@ def get_events(request):
 
         if request.user.is_staff:
             new_list.append({
+                "id": event.id,
                 "name": event.name,
                 "image": event.image,
                 "date": event.date,
                 "available_seats": (event.number_of_seats - event.number_of_booked_seats),
+                "total_seats": (event.number_of_seats),
                 "days_to_go": days_message ,
                 "passed": passed,
             })
@@ -87,6 +90,7 @@ def get_events(request):
                     "image": event.image,
                     "date": event.date,
                     "available_seats": (event.number_of_seats - event.number_of_booked_seats),
+                    "total_seats": (event.number_of_seats),
                     "days_to_go": days_message ,
                     "passed": passed,
                 })
@@ -95,4 +99,18 @@ def get_events(request):
 
 
     return render (request, "events_list.html", context)
-    
+
+def get_event_detail(request, event_id):
+    event = Event.objects.get(id=event_id)
+    context = {
+        "event": {
+            "id": event.id,
+            "name": event.name,
+            "date": event.date,
+            "number_of_seats": event.number_of_seats,
+            "number_of_booked_seats": event.number_of_booked_seats,
+            "image": event.image,
+        }
+    }
+
+    return render(request, "event_detail.html", context)

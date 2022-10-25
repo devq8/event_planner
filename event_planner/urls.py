@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from planner.views import get_home
-from users.views import register_user, login_user, logout_user, get_events
+from users.views import register_user, login_user, logout_user, get_events, get_event_detail
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -29,6 +29,8 @@ urlpatterns = [
     path("signin/", login_user, name="signin" ), 
     path("logout/", logout_user, name="logout" ), 
     path("events/", get_events, name="events-list" ), 
+    path("events/<int:event_id>", get_event_detail, name="event-detail" ), 
+    # path("event-detail/", get_event_detail, name="event-detail" ), 
 
 ]
 if settings.DEBUG:

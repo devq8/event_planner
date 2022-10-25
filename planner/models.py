@@ -15,3 +15,13 @@ class Event(models.Model):
 
     def __str__(self) :
         return self.name
+
+class Reservation(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    event = models.ForeignKey(
+        Event,
+        on_delete = models.CASCADE,
+        related_name="event",
+    )

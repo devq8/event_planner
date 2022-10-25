@@ -1,45 +1,41 @@
 {% extends "base.html" %} {% load static %} {% block title %} Events List
-{%endblock title %} {%block content %} {% for event in events %}
+{%endblock title %} {%block content %} 
+<section class="py-5">
+  <div class="container px-4 px-lg-5 mt-5">
+      <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+        {% for event in events %}  
+        <div class="col mb-5">
+              
+            <div class="card h-100">
+              <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{ event.date }}</div>
 
-<div class="col mb-5">
-  <div class="card rounded-3 shadow-sm h-100">
-    <div
-      class="badge bg-dark text-white position-absolute"
-      style="top: 0.5rem; right: 0.5rem"
-    >
-      {{event.date}}
-    </div>
-
-    <!-- Product image-->
-    <img
-      class="card-img-top"
-      src={{event.image.url}}
-    >
-<p>{{event.image.url}}</p>
-    <!-- Product details-->
-    <div class="card-body p-4">
-      <div class="text-center">
-        <!-- Product name-->
-
-        <h5 class="fw-bolder">{{event.name}}</h5>
-        <h6 class="fw-light">Available Seats = {{event.available_seats}}</h6>
+                  <!-- Product image-->
+                  <img class="card-img-top" src="{{ event.image.url }}" />
+                  <!-- Product details-->
+                  <div class="card-body p-4">
+                      <div class="text-center">
+                          <!-- Product name-->
+                          <h5 class="fw-bolder">{{ event.name }}</h5>
+                          <p>Available Seats: {{ event.available_seats }} / {{ event.total_seats }}</p>
+                          <!-- Product price-->
+                          
+                      </div>
+                  </div>
+                  <!-- Product actions-->
+                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                      <div class="text-center">
+                        <a class="btn btn-outline-dark mt-auto mx-1" href="{% url 'event-detail' event_id=event.id %}">Details</a>
+                        <form action="{% url 'events-list' %}" method="post">
+                        <a class="btn btn-success mt-auto mx-1" href="">Reserve Now</a>
+                        </form>
+                      </div>
+                      
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
       </div>
-    </div>
-    <!-- Product actions-->
-    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-      <div class="text-center">
-        <a class="btn btn-outline-dark mt-auto" href="#">Details</a>
-        {% if event.passed %}
-        <a class="btn btn-success mt-auto disabled" href="#">Book Now</a>
-        {% else %}
-        <a class="btn btn-success mt-auto" href="#">Book Now</a>
-        {% endif %}
-      </div>
-    </div>
-    <div class="card-footer">
-      <small class="text-muted"> {{event.days_to_go}}</small>
-    </div>
   </div>
-</div>
-
-{% endfor %} {% endblock content %}
+  
+</section>
+ {% endblock content %}
