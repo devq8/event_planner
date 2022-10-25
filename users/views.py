@@ -42,7 +42,7 @@ def login_user(request):
                 login(request, auth_user)
                 return redirect("events-list")
     context = {"form": form}
-    return render (request, "signin.html", context)
+    return render (request, "login.html", context)
 
 
 def get_events(request):
