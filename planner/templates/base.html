@@ -53,8 +53,13 @@
         <li class="sidebar-nav-item">
           <a href="{% url 'events-list' %}">Events</a>
         </li>
+        {% if request.user.is_staff %}
         <li class="sidebar-nav-item">
-          <a href="{% url 'logout' %}">Logout</a>
+          <a class="text-warning" href="{% url 'create-event' %}">Create an Event</a>
+        </li>
+        {% endif %}
+        <li class="sidebar-nav-item">
+          <a class="text-danger fw-bold" href="{% url 'logout' %}">Logout</a>
         </li>
         {% else %}
         <li class="sidebar-nav-item">

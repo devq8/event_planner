@@ -1,3 +1,4 @@
+from email.mime import image
 from django import forms
 from django.contrib.auth import get_user_model
 from planner.models import Event, Reservation
@@ -43,9 +44,16 @@ class ReservationForm(forms.ModelForm):
         "class": "form-control",
         "type": "text",
     }))
-
-
+    seats = forms.CharField(widget=forms.NumberInput)
 
     class Meta:
         model = Reservation
         fields = '__all__'
+
+class CreateEventForm(forms.ModelForm):
+    
+    date = forms.DateField()
+
+    class Meta:
+        model = Event
+        fields = ['name', 'image', 'number_of_seats', 'date', 'location']

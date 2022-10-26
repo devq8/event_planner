@@ -10,7 +10,9 @@
               <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">{{ event.date }}</div>
 
                   <!-- Product image-->
+                  {% if event.image %}
                   <img class="card-img-top" src="{{ event.image.url }}" />
+                  {% endif %}
                   <!-- Product details-->
                   <div class="card-body p-4">
                       <div class="text-center">
@@ -25,9 +27,13 @@
                   <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                       <div class="text-center">
                         <a class="btn btn-outline-dark mt-auto mx-1" href="{% url 'event-detail' event_id=event.id %}">Details</a>
+                        {% comment%}
                         <form action="" method="post">
+                            {% endcomment%}
                         <a class="btn btn-success mt-auto mx-1" href="">Reserve Now</a>
+                        {% comment%}
                         </form>
+                        {% endcomment%}
                       </div>
                       
                   </div>

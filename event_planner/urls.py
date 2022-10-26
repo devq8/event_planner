@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from planner.views import get_home
-from users.views import register_user, login_user, logout_user, get_events, get_event_detail, create_reservation
+from users.views import create_event, register_user, login_user, logout_user, get_events, get_event_detail, create_reservation
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -31,7 +31,7 @@ urlpatterns = [
     path("events/", get_events, name="events-list" ), 
     path("events/<int:event_id>/", get_event_detail, name="event-detail" ), 
     path("events/<int:event_id>/reserve/", create_reservation, name="reserve" ), 
-    # path("reserve/", create_reservation, name="reserve" ), 
+    path("events/create", create_event, name="create-event"), 
     # path("reserve/<int:event_id>/", create_reservation, name="quick-reserve" ), 
     
 

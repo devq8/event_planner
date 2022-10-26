@@ -1,9 +1,9 @@
 import datetime
 from django.utils import timezone
 from django.shortcuts import render,redirect
-from users.forms import RegistrationForm, LoginForm, ReservationForm
+from users.forms import CreateEventForm, RegistrationForm, LoginForm, ReservationForm
 from django.contrib.auth import login, logout, login, authenticate
-from planner.models import Event, Reservation
+from planner.models import Event
 from django.conf import settings
 
 
@@ -77,7 +77,8 @@ def get_events(request):
                 "name": event.name,
                 "image": event.image,
                 "date": event.date,
-                "available_seats": (event.number_of_seats - event.number_of_booked_seats),
+                "location": event.location,
+                "available_seats": (event.number_of_seats),
                 "total_seats": (event.number_of_seats),
                 "days_to_go": days_message ,
                 "passed": passed,
@@ -89,7 +90,8 @@ def get_events(request):
                     "name": event.name,
                     "image": event.image,
                     "date": event.date,
-                    "available_seats": (event.number_of_seats - event.number_of_booked_seats),
+                    "location": event.location,
+                    "available_seats": (event.number_of_seats),
                     "total_seats": (event.number_of_seats),
                     "days_to_go": days_message ,
                     "passed": passed,
@@ -102,31 +104,48 @@ def get_events(request):
 
 def get_event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
-    reservation = Reservation(request.user, event_id)
-    if request.method == "POST":
-        reservation.save()
-        return redirect("events-list")
+    
+    
     context = {
         "event": {
             "id": event.id,
             "name": event.name,
             "date": event.date,
+            "location": event.location,
             "number_of_seats": event.number_of_seats,
-            "number_of_booked_seats": event.number_of_booked_seats,
             "image": event.image,
         }
     }
 
     return render(request, "event_detail.html", context)
 
-def create_reservation(request, event_id):
-    reservation = Reservation()
-    reservation.users = request.user
+def create_reservation(request):
+    form = ReservationForm()
     
-    # if request.method == "POST":
-    reservation.save()
-    print('Button works!')
+    if request.method == "POST":
+        form = ReservationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("events-list")
 
-    return redirect("events-list")
+    context = {
+        "form": form
+    }
 
-    # return render(request, "reserve.html")
+    return render(request, "reserve.html", context)
+
+def create_event(request):
+    form = CreateEventForm()
+    if request.method == "POST":
+        form = CreateEventForm(request.POST,request.FILES)
+        print("Before if")
+        if form.is_valid():
+            form.save()
+            print("saved")
+            return redirect("events-list")
+        print("After if")
+    context = {
+        "form": form,
+    }
+
+    return render(request, "create_event.html", context)

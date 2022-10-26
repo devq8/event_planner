@@ -5,9 +5,10 @@ User = get_user_model()
 
 class Event(models.Model):
     name = models.CharField(max_length=30)
-    image = models.ImageField()
+    image = models.ImageField(blank=True,upload_to="media/")
     number_of_seats = models.IntegerField()
     date = models.DateField()
+    location = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 
