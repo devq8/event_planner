@@ -35,6 +35,17 @@ class LoginForm(forms.Form):
     }))
 
 class ReservationForm(forms.ModelForm):
+    users = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "type": "text",
+    }))
+    event = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "type": "text",
+    }))
+
+
+
     class Meta:
         model = Reservation
         fields = '__all__'

@@ -3,7 +3,7 @@ from django.utils import timezone
 from django.shortcuts import render,redirect
 from users.forms import RegistrationForm, LoginForm, ReservationForm
 from django.contrib.auth import login, logout, login, authenticate
-from planner.models import Event
+from planner.models import Event, Reservation
 from django.conf import settings
 
 
@@ -102,6 +102,10 @@ def get_events(request):
 
 def get_event_detail(request, event_id):
     event = Event.objects.get(id=event_id)
+    reservation = Reservation(request.user, event_id)
+    if request.method == "POST":
+        reservation.save()
+        return redirect("events-list")
     context = {
         "event": {
             "id": event.id,
@@ -116,19 +120,13 @@ def get_event_detail(request, event_id):
     return render(request, "event_detail.html", context)
 
 def create_reservation(request, event_id):
-    form = ReservationForm({
-        "users": request.user,
-        "event": event_id,
-    })
-    print("Passed the form")
-    if request.method == "POST":
-        form = ReservationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("events-list")
+    reservation = Reservation()
+    reservation.users = request.user
+    
+    # if request.method == "POST":
+    reservation.save()
+    print('Button works!')
 
-    context = {
-        "form": form,
-    }
+    return redirect("events-list")
 
-    return render(request, "reserve.html", context)
+    # return render(request, "reserve.html")

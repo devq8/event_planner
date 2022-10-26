@@ -29,8 +29,8 @@ urlpatterns = [
     path("signin/", login_user, name="signin" ), 
     path("logout/", logout_user, name="logout" ), 
     path("events/", get_events, name="events-list" ), 
-    path("events/<int:event_id>", get_event_detail, name="event-detail" ), 
-    path("events/<int:event_id>/reserve", create_reservation, name="reserve" ), 
+    path("events/<int:event_id>/", get_event_detail, name="event-detail" ), 
+    path("events/<int:event_id>/reserve/", create_reservation, name="reserve" ), 
     # path("reserve/", create_reservation, name="reserve" ), 
     # path("reserve/<int:event_id>/", create_reservation, name="quick-reserve" ), 
     
