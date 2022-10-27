@@ -16,7 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from planner.views import get_home
-from users.views import create_event, register_user, login_user, logout_user, get_events, get_event_detail, create_reservation
+from users.views import register_user, login_user, logout_user
+from planner.views import create_event, get_events, get_event_detail, create_reservation
 from django.conf import settings
 from django.conf.urls.static import static
 
