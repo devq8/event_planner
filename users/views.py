@@ -138,12 +138,12 @@ def create_event(request):
     form = CreateEventForm()
     if request.method == "POST":
         form = CreateEventForm(request.POST,request.FILES)
-        print("Before if")
+        
         if form.is_valid():
             form.save()
-            print("saved")
+        
             return redirect("events-list")
-        print("After if")
+        
     context = {
         "form": form,
     }

@@ -51,7 +51,9 @@ class ReservationForm(forms.ModelForm):
         fields = '__all__'
 
 class CreateEventForm(forms.ModelForm):
-    
+    name = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+    }))
     date = forms.DateField()
 
     class Meta:
