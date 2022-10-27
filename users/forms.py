@@ -2,6 +2,7 @@ from email.mime import image
 from django import forms
 from django.contrib.auth import get_user_model
 from planner.models import Event, Reservation
+import datetime
 
 User = get_user_model()
 
@@ -59,6 +60,11 @@ class CreateEventForm(forms.ModelForm):
         }))
 
     date = forms.DateField(widget=DateInput)
+    def clean_date(self):
+        date = self.cleaned_data['date']
+        if date < datetime.date.today():
+            raise forms.ValidationError("The date cannot be in the past!")
+        return date
 
     class Meta:
         model = Event
