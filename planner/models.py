@@ -5,8 +5,8 @@ User = get_user_model()
 
 class Event(models.Model):
     name = models.CharField(max_length=30)
-    image = models.ImageField(blank=True,upload_to="media/")
-    number_of_seats = models.IntegerField()
+    image = models.ImageField(upload_to="media/")
+    number_of_seats = models.PositiveIntegerField()
     date = models.DateField()
     location = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)

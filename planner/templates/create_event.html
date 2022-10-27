@@ -1,15 +1,16 @@
 {% extends "base.html" %} 
+{% load crispy_forms_tags %}
 
 {% block title %} Create an Event {% endblock title %}
 
 
 {%block content %}
 <div class="container-sm p-5 input-group">
-  
+
   <form action="{% url 'create-event' %}" method="POST" enctype="multipart/form-data">
     {% csrf_token %} 
-    {{ form }}
-    <button type="submit" class="btn btn-primary">Create Event</button>
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary my-2">Create Event</button>
   </form>
 </div>
 
