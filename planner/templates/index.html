@@ -46,6 +46,10 @@
         <li class="sidebar-brand">
           <a>Welcome, <span class="fw-bold">{{request.user.username}}</span></a>
         </li>
+        {% else %}
+        <li class="sidebar-brand">
+          <a>Start Planning</a>
+        </li>
         {% endif %}
         <li class="sidebar-nav-item"><a href="#page-top">Home</a></li>
         <li class="sidebar-nav-item"><a href="{% url 'events-list' %}">Events</a></li>
@@ -58,20 +62,10 @@
         </li>
         {% else %}
         <li class="sidebar-nav-item">
-          <a href="{% url 'register' %}">Register</a>
+          <a href="{% url 'login' %}">Login</a>
         </li>
         <li class="sidebar-nav-item">
-          <form class="my-2 text-white" action="{% url 'login' %}" method="POST">
-            <div class="mx-3">
-              <div>
-                {% csrf_token %}
-                {{form}}
-              </div>
-              <button class="btn btn-dark btn-lg my-2" type="submit">
-                Login
-              </button>
-           </div>
-          </form>
+          <a href="{% url 'register' %}">Register</a>
         </li>
         {% endif %}
       </ul>

@@ -47,6 +47,10 @@
         <li class="sidebar-brand">
           <a class="text-white">Welcome, <span class="fw-bold">{{request.user.username}}</span></a>
         </li>
+        {% else %}
+        <li class="sidebar-brand">
+          <a class="text-white">Start Planning</a>
+        </li>
         {% endif %}
         <li class="sidebar-nav-item"><a href="{% url 'home' %}">Home</a></li>
         {% if request.user.is_authenticated %}
