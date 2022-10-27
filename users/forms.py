@@ -59,12 +59,29 @@ class CreateEventForm(forms.ModelForm):
         "class": "form-control",
         }))
 
-    date = forms.DateField(widget=DateInput)
+    # ------- Needs to be fixed -------                         [ works fine while commented ]
+    # image = forms.CharField(widget=forms.TextInput(attrs={
+    #     "class": "form-control",
+    #     "type": "file"
+    #     }))
+
+    number_of_seats = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+        }))
+
+    date = forms.DateField(widget=DateInput(attrs={
+        "class": "form-control",
+        }))
     def clean_date(self):
         date = self.cleaned_data['date']
         if date < datetime.date.today():
             raise forms.ValidationError("The date cannot be in the past!")
         return date
+
+    location = forms.CharField(widget=forms.TextInput(attrs={
+        "class": "form-control",
+        }))
+
 
     class Meta:
         model = Event

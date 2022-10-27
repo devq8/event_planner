@@ -30,7 +30,32 @@
                         {% comment%}
                         <form action="" method="post">
                             {% endcomment%}
-                        <a class="btn btn-success mt-auto mx-1" href="">Reserve Now</a>
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-success mt-auto mx-1" href="">Reserve Now</a>
+                        {% else %}
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Reserve Now
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Login Required</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Please login to reserve a an event.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+                        {% endif %}
                         {% comment%}
                         </form>
                         {% endcomment%}
