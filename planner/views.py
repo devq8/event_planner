@@ -85,6 +85,7 @@ def get_event_detail(request, event_id):
 
     return render(request, "event_detail.html", context)
 
+
 def create_reservation(request):
     form = ReservationForm()
     

@@ -37,6 +37,7 @@
     />
     <link href="{% static './css/styles.css' %}" rel="stylesheet" />
     <link href="{% static './css/content-styles.css' %}" rel="stylesheet" />
+    {% block links %}  {% endblock links %}
   </head>
   <body id="page-top">
     <!-- Navigation-->
@@ -44,8 +45,12 @@
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         {% if request.user.is_authenticated %}
+        
         <li class="sidebar-brand">
           <a class="text-white">Welcome, <span class="fw-bold">{{request.user.username}}</span></a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="text-white" href="{% url 'profile' %}">Profile</a>
         </li>
         {% else %}
         <li class="sidebar-brand">
@@ -76,28 +81,12 @@
         {% endif %}
       </ul>
     </nav>
-    {% if request.user.is_authenticated %}
 
-    <!-- Callout-->
-    <section class="header-message callout">
-      <div class="container px-4 px-lg-5 text-center">
-        <h2 class="mx-auto mb-0">
-          Welcome {{request.user.username}} to
-          <em>your</em>
-          Event Planner!
-        </h2>
-      </div>
-    </section>
-    {% else %} {% endif %}
+    {% block header %} 
+    {% endblock header %} 
+    
 
-    <!-- <section class="py-5">
-      <div class="container px-4 px-lg-5 mt-5">
-        <div
-          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-        >
-      </div>
-    </div>
-  </section> -->
+    
   {% block content %} {% endblock content %}
 
     <!-- Footer-->
@@ -129,6 +118,7 @@
     <a class="scroll-to-top rounded" href="#page-top"
       ><i class="fas fa-angle-up"></i
     ></a>
+    {% block scripts %}  {% endblock scripts %}
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->

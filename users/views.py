@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
-from users.forms import RegistrationForm, LoginForm
-from django.contrib.auth import login, logout, login, authenticate
+from users.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from django.contrib.auth import login, logout, login, authenticate, get_user_model
 from django.conf import settings
 
+User = get_user_model()
 
 def register_user(request):
     # Create new instance of RegisterationForm.
@@ -41,3 +42,18 @@ def login_user(request):
     context = {"form": form}
     return render (request, "login.html", context)
 
+def get_profile_details(request):
+    print(request.user)
+    user = User.objects.get(username=request.user)
+    context = {
+        "profile": {
+            "username": user.username,
+        }
+    }
+
+    return render(request, "profile_details.html", context)
+
+def update_profile(request):
+    # user = User.objects.get(request.username)
+    # user.set_password('request.password')
+    pass

@@ -14,9 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 from planner.views import get_home
-from users.views import register_user, login_user, logout_user
+from users.views import register_user, login_user, logout_user, get_profile_details, update_profile
 from planner.views import create_event, get_events, get_event_detail, create_reservation
 from django.conf import settings
 from django.conf.urls.static import static
@@ -31,6 +32,9 @@ urlpatterns = [
     path("logout/", logout_user, name="logout" ), 
     path("events/", get_events, name="events-list" ), 
     path("events/<int:event_id>/", get_event_detail, name="event-detail" ), 
+    path("profile/", get_profile_details, name="profile" ), 
+    path("profile/update", update_profile, name="update-profile" ), 
+    path("profile/change_password", auth_views.PasswordChangeView.as_view(template_name='profile/change-password.html'), name="change-password" ), 
     path("events/<int:event_id>/reserve/", create_reservation, name="reserve" ), 
     path("events/create", create_event, name="create-event"), 
     # path("reserve/<int:event_id>/", create_reservation, name="quick-reserve" ), 

@@ -1,5 +1,21 @@
 {% extends "base.html" %} {% load static %} {% block title %} Events List
-{%endblock title %} {%block content %} 
+{%endblock title %} 
+
+{% block header %} 
+<!-- Callout-->
+{% if request.user.is_authenticated %}
+<section class="header-message callout">
+  <div class="container px-4 px-lg-5 text-center">
+    <h2 class="mx-auto mb-0">
+      Welcome <em>{{request.user.username}}</em> to your Event Planner!
+    </h2>
+  </div>
+</section>
+{% else %} {% endif %}
+
+{% endblock header %} 
+
+{%block content %} 
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
       <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">

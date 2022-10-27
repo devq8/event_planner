@@ -59,12 +59,6 @@ class CreateEventForm(forms.ModelForm):
         "class": "form-control",
         }))
 
-    # ------- Needs to be fixed -------                         [ works fine while commented ]
-    # image = forms.CharField(widget=forms.TextInput(attrs={
-    #     "class": "form-control",
-    #     "type": "file"
-    #     }))
-
     number_of_seats = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control",
         }))
@@ -82,7 +76,24 @@ class CreateEventForm(forms.ModelForm):
         "class": "form-control",
         }))
 
-
     class Meta:
         model = Event
         fields = ['name', 'image', 'number_of_seats', 'date', 'location']
+
+class UpdateProfileForm(forms.ModelForm):
+    username = forms.CharField(required=True, widget=forms.TextInput(attrs={
+        "class": "form-control",
+        "type": "text",
+        }))
+
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        "class": "form-control",
+    }))
+
+    class Meta():
+        model = User
+        fields = ["username", "password"]
+
+        widgets = {
+            "password": forms.PasswordInput()
+        }

@@ -1,0 +1,69 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block title %} Profile Detail {% endblock title %}
+
+{% block links %} 
+<link href="{% static './css/profile.css' %}" rel="stylesheet" type="text/css" />
+{% endblock links %}
+
+{%block content %}
+<section class="profile-masthead bg-primary text-white text-center">
+  <div class="container d-flex align-items-center flex-column">
+      <!-- Masthead Avatar Image-->
+      <img class="masthead-avatar mb-5" src="{% static './assets/img/avataaars.svg' %}" style="max-width: 25%;"/>
+      <!-- Masthead Heading-->
+      <h1 class="masthead-heading text-uppercase mb-0">My Profile</h1>
+      <!-- Icon Divider-->
+      <div class="divider-custom divider-light">
+          <div class="divider-custom-line"></div>
+          <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+          <div class="divider-custom-line"></div>
+      </div>
+  </div>
+</section>
+
+<section class="" >
+    <div class="container">
+          <div class="  ">
+            <div class="card-body">
+              <div class="row justify-content-center">
+                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                    Edit Profile
+                  </p>
+  
+                      
+                      <div class="d-flex flex-row align-items-center mb-4">
+                          <label>Username</label>
+                          <input type="text" value="{{profile.username}}" class="form-control">
+                          <label>First Name</label>
+                          <input type="text" value="" class="form-control">
+                          <label>Last Name</label>
+                          <input type="text" value="" class="form-control">
+                          <label>Email</label>
+                          <input type="text" value="" class="form-control">
+                          
+                      </div>
+                      
+
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <a class="btn btn-dark btn-lg mx-3" onClick="javascript:history.go(-1);">
+                        Back
+                      </a>
+                      <a class="btn btn-success btn-lg mx-3">
+                        Update
+                      </a>
+                      <a class="btn btn-secondary btn-lg mx-3" href="{% url 'change-password' %}">
+                        Change Password
+                      </a>
+                    </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </section>
+{% endblock content %}
+{% block scripts %}  
+<script src="{% static 'js/profile.js' %}"></script>
+
+{% endblock scripts %}
