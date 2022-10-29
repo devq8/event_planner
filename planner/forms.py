@@ -19,8 +19,6 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = '__all__'
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
 
 class CreateEventForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={
@@ -37,8 +35,9 @@ class CreateEventForm(forms.ModelForm):
         "class": "form-control",
         }))
 
-    date = forms.DateField(widget=DateInput(attrs={
+    date = forms.DateField(widget=forms.TextInput(attrs={
         "class": "form-control",
+        "type": "date",
         }))
     def clean_date(self):
         date = self.cleaned_data['date']
@@ -49,7 +48,6 @@ class CreateEventForm(forms.ModelForm):
     location = forms.CharField(widget=forms.TextInput(attrs={
         "class": "form-control",
         }))
-
 
     class Meta:
         model = Event
