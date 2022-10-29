@@ -1,70 +1,57 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import get_user_model
 import datetime
 from django.shortcuts import render, redirect
 from planner.forms import ReservationForm, CreateEventForm
-from planner.models import Event
+from planner.models import Event, Reservation
 from django.utils import timezone
 
-# Create your views here.
+User = get_user_model()
 
 def get_home(request):
     return render(request, "index.html")
 
 def get_events(request):
+    if request.user.is_staff:   
+        events_list = Event.objects.all()
+        new_events_list = []
+        for event in events_list:
+            reservations = Reservation.objects.filter(event=event.id)
+            total_reservations = 0
+            for reservation in reservations:
+                total_reservations += reservation.seats
 
-    # if request.user.is_anonymous:
-    #     return redirect("login")
-
-
-    events_list = Event.objects.all()
-
-
-    new_list = []
-    
-    for event in events_list:
-
-        today = datetime.date(timezone.now().year,timezone.now().month,timezone.now().day)
-        event_date = datetime.date(event.date.year,event.date.month,event.date.day)
-
-        days_different = event_date - today
-
-        days_message = ""
-        passed = False
-
-        if days_different.days >= 0 :
-            days_message = f"{days_different.days} days to go."
-        else:
-            days_message = f"Passed!"
-            passed = True
-
-        if request.user.is_staff:
-            new_list.append({
+            new_events_list.append({
                 "id": event.id,
                 "name": event.name,
                 "image": event.image,
                 "date": event.date,
-                "location": event.location,
-                "available_seats": (event.number_of_seats),
-                "total_seats": (event.number_of_seats),
-                "days_to_go": days_message ,
-                "passed": passed,
+                "available_seats": (event.number_of_seats - total_reservations),
+                "total_seats": event.number_of_seats,
+            }) 
+        
+        context = {"events": new_events_list}
+    else:
+        upcoming_events = Event.objects.filter(date__gt=datetime.datetime.now())
+        new_upcoming_events = []
+
+    
+        for event in upcoming_events:
+            reservations = Reservation.objects.filter(event=event.id)
+            total_reservations = 0
+            for reservation in reservations:
+                total_reservations += reservation.seats
+
+            new_upcoming_events.append({
+                "id": event.id,
+                "name": event.name,
+                "image": event.image,
+                "date": event.date,
+                "available_seats": (event.number_of_seats - total_reservations),
+                "total_seats": event.number_of_seats,
             })
-        else:
-            if not passed:
-                new_list.append({
-                    "id": event.id,
-                    "name": event.name,
-                    "image": event.image,
-                    "date": event.date,
-                    "location": event.location,
-                    "available_seats": (event.number_of_seats),
-                    "total_seats": (event.number_of_seats),
-                    "days_to_go": days_message ,
-                    "passed": passed,
-                })
-
-    context = {"events": new_list}
-
+        
+        context = {"events": new_upcoming_events}
 
     return render (request, "events_list.html", context)
 
@@ -87,16 +74,30 @@ def get_event_detail(request, event_id):
 
 @login_required
 def create_reservation(request, event_id):
-    form = ReservationForm({
-        'users': request.user,
-        'event': event_id
-        })
+    event = Event.objects.get(id=event_id)
+    reservations = Reservation.objects.filter(event=event_id)
+    total_reservations = 0
+    for reservation in reservations:
+        total_reservations += reservation.seats
+    
+    available_seats = event.number_of_seats - total_reservations
+
+    form = ReservationForm(initial={
+        "users": request.user.id,
+        "event": event_id,
+    })
+    
+    # if request.POST.get("seats") > available_seats:
+    #     print("Issue")
+    # else:
+    #     print("No issue!")
     
     if request.method == "POST":
         form = ReservationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("events-list")
+        if int(request.POST.get("seats")) <= (available_seats):
+            if form.is_valid():
+                form.save()
+                return redirect("events-list")
 
     context = {
         "form": form

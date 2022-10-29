@@ -33,20 +33,19 @@ class LoginForm(forms.Form):
         "class": "form-control",
     }))
 
-
 class UpdateProfileForm(forms.ModelForm):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={
-        "class": "form-control",
-        "type": "text",
-        }))
+    # username = forms.CharField(required=True, widget=forms.TextInput(attrs={
+    #     "class": "form-control",
+    #     "type": "text",
+    #     }))
 
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        "class": "form-control",
-    }))
+    # password = forms.CharField(widget=forms.PasswordInput(attrs={
+    #     "class": "form-control",
+    # }))
 
     class Meta():
         model = User
-        fields = ["username", "password"]
+        fields = "__all__"
 
         widgets = {
             "password": forms.PasswordInput()

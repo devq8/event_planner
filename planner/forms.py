@@ -1,19 +1,21 @@
 from django import forms
-from planner.models import Event, Reservation
+from planner.models import *
 import datetime
 
 
 
 class ReservationForm(forms.ModelForm):
-    users = forms.CharField(widget=forms.TextInput(attrs={
-        "class": "form-control",
-        "type": "text",
-    }))
-    event = forms.CharField(widget=forms.TextInput(attrs={
-        "class": "form-control",
-        "type": "text",
-    }))
-    seats = forms.CharField(widget=forms.NumberInput)
+    # users = forms.CharField(widget=forms.TextInput(attrs={
+    #     "class": "form-control",
+    #     "type": "text",
+    #     "readonly": True,
+    # }))
+    # event = forms.CharField(widget=forms.TextInput(attrs={
+    #     "class": "form-control",
+    #     "type": "text",
+    #     "readonly": True,
+    # }))
+    # seats = forms.CharField(widget=forms.NumberInput)
 
     class Meta:
         model = Reservation
