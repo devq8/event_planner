@@ -1,4 +1,3 @@
-from email.mime import image
 from django import forms
 from planner.models import Event, Reservation
 import datetime

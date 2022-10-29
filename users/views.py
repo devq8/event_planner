@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
-from users.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from users.forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, login, authenticate, get_user_model
-from django.conf import settings
 
 User = get_user_model()
 

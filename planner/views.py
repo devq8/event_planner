@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect
 from planner.forms import ReservationForm, CreateEventForm
 from planner.models import Event
 from django.utils import timezone
-from django.conf import settings
 
 # Create your views here.
 
