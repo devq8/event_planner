@@ -34,20 +34,10 @@
                       <div class="text-center">
                           <!-- Event details-->
                           <h5 class="fw-bolder">{{ event.name }}</h5>
-                          <p>Available Seats: {{ event.available_seats }} / {{ event.total_seats }}</p>
+                          
                       </div>
                   </div>
-                  <!-- Buttons-->
-                  <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                      <div class="text-center">
-                        <a class="btn btn-outline-dark mt-auto mx-1" href="{% url 'event-detail' event_id=event.id %}">Details</a>
-                        {% if event.available_seats == 0 %}
-                        <a class="btn btn-success mt-auto mx-1 disabled" href="">Full</a>
-                        {% else %}
-                        <a class="btn btn-success mt-auto mx-1" href="{% url 'reserve' event_id=event.id %}">Reserve Now</a>
-                        {% endif %}
-                      </div>
-                  </div>
+                  
               </div>
           </div>
           {% endfor %}

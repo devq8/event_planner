@@ -9,6 +9,7 @@ class Event(models.Model):
     number_of_seats = models.PositiveIntegerField()
     date = models.DateField()
     location = models.CharField(max_length=30)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_by")
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
 

@@ -1,7 +1,9 @@
 from django import forms
 from planner.models import *
 import datetime
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 
 class ReservationForm(forms.ModelForm):
@@ -41,6 +43,13 @@ class CreateEventForm(forms.ModelForm):
         "class": "form-control",
         "type": "date",
         }))
+
+    created_by = forms.ModelChoiceField(
+        User.objects.all(),
+        widget=forms.HiddenInput(),
+    )
+
+
     def clean_date(self):
         date = self.cleaned_data['date']
         if date < datetime.date.today():

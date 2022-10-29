@@ -112,13 +112,25 @@ def get_reservations(request):
     context = {"reservations": new_reservations_list}
     return render (request, "reservations.html", context)
 
+def get_my_events(request):
+    events = Event.objects.filter(created_by=request.user)
+    # new_event_list = []
+    # print(events)
+    # for event in events:
+    #     new_event_list.append({
+    #         "name": event.name,
+    #         "image": event.image,
+    #         "date": event.date,
+    #     })
+    context = {"events": events}
+    return render (request, "events_list.html", context)
+
 
 @login_required
 def create_event(request):
-    form = CreateEventForm()
+    form = CreateEventForm({'created_by': request.user})
     if request.method == "POST":
         form = CreateEventForm(request.POST,request.FILES)
-        
         if form.is_valid():
             form.save()
         
