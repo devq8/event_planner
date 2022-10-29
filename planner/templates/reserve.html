@@ -1,11 +1,11 @@
 {% extends "base.html" %} 
+{% load crispy_forms_tags %}
 
 {% block title %} Reserve Event {% endblock title %}
 
 
 {%block content %}
 <div class="container p-5">
-  {% load crispy_forms_tags %}
   <form action="{% url 'reserve' %}" method="POST">
     {% csrf_token %} {{ form | crispy }}
     <button type="submit" class="btn btn-primary">Reserve</button>
