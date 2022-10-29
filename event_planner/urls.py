@@ -33,10 +33,10 @@ urlpatterns = [
     path("events/", get_events, name="events-list" ), 
     path("events/<int:event_id>/", get_event_detail, name="event-detail" ), 
     path("profile/", get_profile_details, name="profile" ), 
-    path("profile/update", update_profile, name="update-profile" ), 
-    path("profile/change_password", auth_views.PasswordChangeView.as_view(template_name='profile/change-password.html'), name="change-password" ), 
+    path("profile/update/", update_profile, name="update-profile" ), 
+    path("profile/change_password/", auth_views.PasswordChangeView.as_view(template_name='profile/change-password.html'), name="change-password" ), 
     path("events/<int:event_id>/reserve/", create_reservation, name="reserve" ), 
-    path("events/create", create_event, name="create-event"), 
+    path("events/create/", create_event, name="create-event"), 
     # path("reserve/<int:event_id>/", create_reservation, name="quick-reserve" ), 
     
 

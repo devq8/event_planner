@@ -58,6 +58,9 @@
         <li class="sidebar-nav-item"><a href="#contact">Contact</a></li>
         {% if request.user.is_authenticated %}
         <li class="sidebar-nav-item">
+          <a class="text-white" href="{% url 'profile' %}">Profile</a>
+        </li>
+        <li class="sidebar-nav-item">
           <a href="{% url 'logout' %}">Logout</a>
         </li>
         {% else %}
