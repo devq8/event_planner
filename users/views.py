@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
-from users.forms import RegistrationForm, LoginForm
+from users.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from django.contrib.auth import login, logout, login, authenticate, get_user_model
 
 User = get_user_model()
@@ -46,16 +46,22 @@ def login_user(request):
 def get_profile_details(request):
     print(request.user)
     user = User.objects.get(username=request.user)
-    context = {
-        "profile": {
-            "username": user.username,
-        }
-    }
+    context = {"profile": user,}
 
     return render(request, "profile_details.html", context)
 
 @login_required
 def update_profile(request):
-    # user = User.objects.get(request.username)
-    # user.set_password('request.password')
-    pass
+    user = User.objects.get(username=request.user)
+
+    form = UpdateProfileForm(instance=request.user)
+
+    if request.method == "POST":
+        form = UpdateProfileForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("events-list")
+    
+    context = {"form": form}
+
+    return render(request, "update_profile.html", context)

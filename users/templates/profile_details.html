@@ -24,44 +24,35 @@
 </section>
 
 <section class="" >
-    <div class="container">
-          <div class="  ">
-            <div class="card-body">
-              <div class="row justify-content-center">
-                  <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                    Edit Profile
-                  </p>
-  
-                      
-                      <div class="d-flex flex-row align-items-center mb-4">
-                          <label>Username</label>
-                          <input type="text" value="{{profile.username}}" class="form-control">
-                          <label>First Name</label>
-                          <input type="text" value="" class="form-control">
-                          <label>Last Name</label>
-                          <input type="text" value="" class="form-control">
-                          <label>Email</label>
-                          <input type="text" value="" class="form-control">
-                          
-                      </div>
-                      
-
-                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <a class="btn btn-dark btn-lg mx-3" onClick="javascript:history.go(-1);">
-                        Back
-                      </a>
-                      <a class="btn btn-success btn-lg mx-3">
-                        Update
-                      </a>
-                      <a class="btn btn-secondary btn-lg mx-3" href="{% url 'change-password' %}">
-                        Change Password
-                      </a>
-                    </div>
-              </div>
+  <div class="container">
+    <div class="  ">
+      <div class="card-body">
+        <div class="row justify-content-center">
+            <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+              Edit Profile
+            </p>
+            <label for="username">Username</label>
+            <input name="username" type="text" value="{{ profile.username }}">
+            <label for="firstname">First Name</label>
+            <input name="firstname" type="text" value="{{ profile.first_name }}">
+            <label for="lastname">Last Name</label>
+            <input name="lastname" type="text" value="{{ profile.last_name }}">
+            <label for="email">Email</label>
+            <input name="email" type="text" value="{{ profile.email }}">
+            <div class="d-flex justify-content-center mx-4 mt-3 mb-3 mb-lg-4">
+              <a class="btn btn-dark btn-lg mx-3" onClick="javascript:history.go(-1);">
+                Back
+              </a>
+              <a class="btn btn-primary btn-lg mx-3" href="{% url 'update-profile' %}">Update</a>
+              <a class="btn btn-secondary btn-lg mx-3" href="{% url 'change-password' %}">
+                Change Password
+              </a>
             </div>
-          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 {% endblock content %}
 {% block scripts %}  
 <script src="{% static 'js/profile.js' %}"></script>

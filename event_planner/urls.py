@@ -18,7 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from planner.views import get_home
 from users.views import register_user, login_user, logout_user, get_profile_details, update_profile
-from planner.views import create_event, get_events, get_event_detail, create_reservation
+from planner.views import create_event, get_events, get_event_detail, create_reservation, get_reservations
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path("events/create/", create_event, name="create-event"), 
     path("events/<int:event_id>/", get_event_detail, name="event-detail" ), 
     path("events/<int:event_id>/reserve/", create_reservation, name="reserve" ), 
+    path("reservations/", get_reservations, name="my-reservations" ), 
     path("profile/", get_profile_details, name="profile" ), 
     path("profile/update/", update_profile, name="update-profile" ), 
     path("profile/change_password/", auth_views.PasswordChangeView.as_view(template_name='profile/change-password.html'), name="change-password" ), 

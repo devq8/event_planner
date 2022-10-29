@@ -1,0 +1,23 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+
+{% block title %}Update Profile{% endblock title %}
+{% block header %} 
+<section class="header-message callout">
+  <div class="container px-4 px-lg-5 text-center">
+    <h2 class="mx-auto mb-0">
+      Update <em>your</em> Profile!
+    </h2>
+  </div>
+</section>
+{% endblock header %} 
+
+{%block content %}
+<div class="container p-5">
+  <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary" name="submit">Update</button>
+  </form>
+</div>
+{% endblock content %}

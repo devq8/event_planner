@@ -87,11 +87,6 @@ def create_reservation(request, event_id):
         "event": event_id,
     })
     
-    # if request.POST.get("seats") > available_seats:
-    #     print("Issue")
-    # else:
-    #     print("No issue!")
-    
     if request.method == "POST":
         form = ReservationForm(request.POST)
         if int(request.POST.get("seats")) <= (available_seats):
@@ -104,6 +99,19 @@ def create_reservation(request, event_id):
     }
 
     return render(request, "reserve.html", context)
+
+def get_reservations(request):
+    reservations = Reservation.objects.filter(users=request.user)
+    new_reservations_list = []
+    print(reservations)
+    for reservation in reservations:
+        new_reservations_list.append({
+            "event": reservation.event,
+            "seats": reservation.seats,
+        })
+    context = {"reservations": new_reservations_list}
+    return render (request, "reservations.html", context)
+
 
 @login_required
 def create_event(request):

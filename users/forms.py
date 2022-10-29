@@ -47,6 +47,6 @@ class UpdateProfileForm(forms.ModelForm):
         model = User
         fields = "__all__"
 
-        widgets = {
-            "password": forms.PasswordInput()
-        }
+        # widgets = {
+        #     "password": forms.PasswordInput()
+        # }
