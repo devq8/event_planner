@@ -123,7 +123,7 @@ def get_my_events(request):
     #         "date": event.date,
     #     })
     context = {"events": events}
-    return render (request, "events_list.html", context)
+    return render (request, "my_events.html", context)
 
 
 @login_required
