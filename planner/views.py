@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 import datetime
 from django.shortcuts import render, redirect
 from planner.forms import ReservationForm, CreateEventForm
@@ -84,7 +85,7 @@ def get_event_detail(request, event_id):
 
     return render(request, "event_detail.html", context)
 
-
+@login_required
 def create_reservation(request, event_id):
     form = ReservationForm({
         'users': request.user,
@@ -103,6 +104,7 @@ def create_reservation(request, event_id):
 
     return render(request, "reserve.html", context)
 
+@login_required
 def create_event(request):
     form = CreateEventForm()
     if request.method == "POST":

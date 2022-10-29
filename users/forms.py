@@ -1,7 +1,5 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from planner.models import Event, Reservation
-import datetime
 
 User = get_user_model()
 

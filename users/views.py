@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from users.forms import RegistrationForm, LoginForm
 from django.contrib.auth import login, logout, login, authenticate, get_user_model
@@ -41,6 +42,7 @@ def login_user(request):
     context = {"form": form}
     return render (request, "login.html", context)
 
+@login_required
 def get_profile_details(request):
     print(request.user)
     user = User.objects.get(username=request.user)
@@ -52,6 +54,7 @@ def get_profile_details(request):
 
     return render(request, "profile_details.html", context)
 
+@login_required
 def update_profile(request):
     # user = User.objects.get(request.username)
     # user.set_password('request.password')
