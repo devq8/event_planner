@@ -39,7 +39,7 @@ urlpatterns = [
     path("profile/", get_profile_details, name="profile" ), 
     path("profile/update/", update_profile, name="update-profile" ), 
     path("profile/change_password/", auth_views.PasswordChangeView.as_view(template_name='profile/change-password.html'), name="change-password",),
-    path("profile/change_password/done/", auth_views.PasswordChangeDoneView.as_view(template_name='profile/change-password-done.html'), name='change-password-done'),
+    path("profile/change_password/done/", auth_views.PasswordChangeDoneView.as_view(), name='password_change_done',),
     # path("reserve/<int:event_id>/", create_reservation, name="quick-reserve" ), 
     
 
