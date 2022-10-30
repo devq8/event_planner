@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import (MinValueValidator, MaxValueValidator) #MaxValidator not being used at the moment but will be used in future.
-
+from django.core.validators import MinValueValidator
 User = get_user_model()
 
 class Event(models.Model):
