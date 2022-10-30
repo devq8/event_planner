@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import (MinValueValidator, MaxValueValidator)
 
 User = get_user_model()
 
@@ -30,7 +31,7 @@ class Reservation(models.Model):
         related_name="event",
     )
 
-    seats = models.IntegerField()
+    seats = models.PositiveIntegerField(validators=[MinValueValidator(1, "Minimum reservation seats is 1 seat."),])
 
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

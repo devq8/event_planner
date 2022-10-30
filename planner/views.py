@@ -82,15 +82,15 @@ def create_reservation(request, event_id):
     
     available_seats = event.number_of_seats - total_reservations
 
-    form = ReservationForm(initial={
-        "users": request.user.id,
-        "event": event_id,
-    })
+    form = ReservationForm()
     
     if request.method == "POST":
         form = ReservationForm(request.POST)
         if int(request.POST.get("seats")) <= (available_seats):
             if form.is_valid():
+                form = form.save(commit=False)
+                form.users = request.user
+                form.event = event
                 form.save()
                 return redirect("events-list")
 

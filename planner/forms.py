@@ -21,7 +21,7 @@ class ReservationForm(forms.ModelForm):
 
     class Meta:
         model = Reservation
-        fields = '__all__'
+        fields = ['seats']
 
 
 class CreateEventForm(forms.ModelForm):
@@ -46,7 +46,10 @@ class CreateEventForm(forms.ModelForm):
 
     created_by = forms.ModelChoiceField(
         User.objects.all(),
-        widget=forms.HiddenInput(),
+        widget=forms.HiddenInput(attrs={
+            "id": "disabledInput",
+            "placeholder":"Number of seats"
+        }),
     )
 
 
